@@ -1,6 +1,7 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import DashboardClient from "./DashboardClient";
+import { getDashboardData } from "../../lib/ghl";
 
 export const dynamic = "force-dynamic";
 
@@ -12,9 +13,7 @@ export default async function DashboardPage() {
     redirect("/login");
   }
 
-  return (
-    <DashboardClient
-      ghlConfigured={Boolean(process.env.GHL_PRIVATE_INTEGRATION_TOKEN)}
-    />
-  );
+  const dashboardData = await getDashboardData();
+
+  return <DashboardClient data={dashboardData} />;
 }
