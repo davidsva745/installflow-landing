@@ -147,26 +147,33 @@ function InstallFlowLogo() {
           fill="none"
         >
           <path
-            d="M10 31.5V12.5"
-            stroke="#09090b"
-            strokeWidth="4"
-            strokeLinecap="round"
-          />
-          <path
-            d="M19 13H31.5C35 13 37 15 37 18.2C37 21.6 34.7 23.4 31.2 23.4H24.4C21.1 23.4 19.1 25.1 19.1 28.1C19.1 31.1 21.2 33 24.4 33H35"
+            d="M10 20.5L22 10.5L34 20.5"
             stroke="#09090b"
             strokeWidth="3.4"
             strokeLinecap="round"
             strokeLinejoin="round"
           />
           <path
-            d="M28.5 18.2H36.8L32.5 14"
+            d="M15 20.5V31.5H29V20.5"
             stroke="#09090b"
             strokeWidth="3"
             strokeLinecap="round"
             strokeLinejoin="round"
           />
-          <circle cx="10" cy="7.8" r="2.4" fill="#09090b" />
+          <path
+            d="M12 34H21.5C26.5 34 28.8 28 24.2 26.4L20.8 25.2C17 23.9 19.1 18.6 23.2 18.6H32"
+            stroke="#09090b"
+            strokeWidth="3.4"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <path
+            d="M29.2 14.8L34 18.7L29.2 22.6"
+            stroke="#09090b"
+            strokeWidth="3.2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
         </svg>
         <span className="absolute inset-y-0 -left-8 w-6 rotate-12 bg-white/45 transition duration-700 group-hover:translate-x-20" />
       </span>
