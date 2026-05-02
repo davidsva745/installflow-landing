@@ -173,6 +173,33 @@ body {
   animation: kinetic-sweep 5.2s ease-in-out infinite;
 }
 
+.field-grid {
+  background-image:
+    linear-gradient(rgba(24, 24, 27, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(24, 24, 27, 0.06) 1px, transparent 1px),
+    linear-gradient(135deg, transparent 42%, rgba(132, 204, 22, 0.22) 42%, rgba(132, 204, 22, 0.22) 46%, transparent 46%);
+  background-size: 48px 48px, 48px 48px, 220px 220px;
+}
+
+.ops-route-base,
+.ops-route-live {
+  fill: none;
+  stroke-linecap: round;
+  stroke-width: 6;
+}
+
+.ops-route-base {
+  stroke: rgba(24, 24, 27, 0.18);
+  stroke-dasharray: 3 18;
+}
+
+.ops-route-live {
+  stroke: #09090b;
+  stroke-dasharray: 80 620;
+  stroke-dashoffset: 700;
+  animation: ops-route 3.8s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+
 @keyframes route-sweep {
   0% {
     transform: translateX(0);
@@ -215,6 +242,23 @@ body {
   }
   100% {
     transform: translateX(360%) skewX(-18deg);
+  }
+}
+
+@keyframes ops-route {
+  0% {
+    stroke-dashoffset: 700;
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  78% {
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0;
   }
 }
 

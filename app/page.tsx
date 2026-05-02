@@ -218,17 +218,17 @@ function StatPill({
 
 function AnimatedHeadline() {
   const lines = [
-    ["Váš AI", "asistent,"],
-    ["který mění", "zprávy"],
-    ["v zakázky."],
+    ["Méně", "zmeškaných"],
+    ["poptávek."],
+    ["Více", "obhlídek."],
   ];
 
   return (
-    <h1 className="text-balance mx-auto mt-7 max-w-6xl text-5xl font-black leading-[0.88] tracking-tight text-zinc-950 sm:text-7xl lg:text-8xl xl:text-[6.6rem]">
+    <h1 className="text-balance mt-7 max-w-5xl text-5xl font-black leading-[0.88] tracking-tight text-zinc-950 sm:text-7xl lg:text-8xl xl:text-[6.4rem]">
       {lines.map((line, lineIndex) => (
         <span key={line.join(" ")} className="block overflow-hidden pb-2">
           {line.map((part, partIndex) => {
-            const highlight = part === "zprávy";
+            const highlight = part === "obhlídek.";
             return (
               <motion.span
                 key={part}
@@ -328,6 +328,113 @@ function SignalBoard() {
         </div>
       </div>
     </FadeIn>
+  );
+}
+
+function FieldOpsVisual() {
+  const routePoints = [
+    { label: "SMS", x: "14%", y: "24%" },
+    { label: "Brno", x: "42%", y: "52%" },
+    { label: "9:30", x: "72%", y: "34%" },
+  ];
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: 40, rotate: 2 }}
+      animate={{ opacity: 1, x: 0, rotate: 0 }}
+      transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+      className="relative min-h-[34rem] overflow-hidden rounded-[2rem] border border-zinc-950 bg-[#eff9df] shadow-[0_34px_100px_rgba(24,24,27,0.16)]"
+    >
+      <div className="absolute inset-0 field-grid opacity-70" />
+      <div className="absolute left-8 top-8 z-10 flex items-center gap-3 rounded-full border border-zinc-950 bg-white px-4 py-2 text-xs font-black uppercase tracking-[0.16em] text-zinc-950">
+        <span className="pulse-dot h-2.5 w-2.5 rounded-full bg-lime-400" />
+        instalační dispečink
+      </div>
+
+      <svg
+        aria-hidden="true"
+        className="absolute inset-0 h-full w-full"
+        viewBox="0 0 760 560"
+        preserveAspectRatio="none"
+      >
+        <path
+          className="ops-route-base"
+          d="M92 156 C198 82 268 336 396 272 C510 216 546 134 658 204"
+        />
+        <path
+          className="ops-route-live"
+          d="M92 156 C198 82 268 336 396 272 C510 216 546 134 658 204"
+        />
+      </svg>
+
+      {routePoints.map((point, index) => (
+        <motion.div
+          key={point.label}
+          initial={{ scale: 0, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{
+            delay: 0.45 + index * 0.18,
+            type: "spring",
+            stiffness: 260,
+            damping: 20,
+          }}
+          className="absolute z-20 grid h-16 w-16 place-items-center rounded-full border border-zinc-950 bg-white text-sm font-black text-zinc-950 shadow-[0_16px_40px_rgba(24,24,27,0.14)]"
+          style={{ left: point.x, top: point.y }}
+        >
+          {point.label}
+        </motion.div>
+      ))}
+
+      <motion.div
+        animate={{ y: [0, -10, 0], rotate: [-2, 1, -2] }}
+        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute bottom-10 left-8 z-10 w-56 rounded-[1.4rem] border border-zinc-950 bg-white p-4"
+      >
+        <p className="text-xs font-black uppercase tracking-[0.16em] text-zinc-500">
+          montér v terénu
+        </p>
+        <p className="mt-3 text-3xl font-black tracking-tight text-zinc-950">
+          na střeše
+        </p>
+        <p className="mt-2 text-sm font-bold leading-6 text-zinc-600">
+          Telefon nezvedá. Systém mezitím kvalifikuje lead.
+        </p>
+      </motion.div>
+
+      <motion.div
+        animate={{ x: [0, 18, 0] }}
+        transition={{ duration: 4.8, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute bottom-16 right-8 z-10 w-64 rounded-[1.4rem] border border-zinc-950 bg-zinc-950 p-4 text-white"
+      >
+        <p className="text-xs font-black uppercase tracking-[0.16em] text-lime-300">
+          výsledek
+        </p>
+        <p className="mt-3 text-3xl font-black tracking-tight">
+          obhlídka 9:30
+        </p>
+        <div className="mt-4 grid grid-cols-3 gap-2">
+          {["8:00", "9:30", "11:00"].map((time) => (
+            <span
+              key={time}
+              className={`rounded-full px-3 py-2 text-center text-xs font-black ${
+                time === "9:30"
+                  ? "bg-lime-300 text-zinc-950"
+                  : "bg-white/10 text-zinc-300"
+              }`}
+            >
+              {time}
+            </span>
+          ))}
+        </div>
+      </motion.div>
+
+      <motion.div
+        aria-hidden="true"
+        animate={{ rotate: 360 }}
+        transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
+        className="absolute right-16 top-20 h-32 w-32 rounded-full border border-dashed border-zinc-950/30"
+      />
+    </motion.div>
   );
 }
 
@@ -747,22 +854,24 @@ function ProblemCard({
   return (
     <FadeIn>
       <motion.div
-        whileHover={{ y: -6 }}
-        className="group relative min-h-60 overflow-hidden rounded-[1.6rem] border border-zinc-200 bg-white p-6 shadow-[0_18px_60px_rgba(24,24,27,0.07)]"
+        whileHover={{ x: 10 }}
+        className="group relative grid overflow-hidden border-t border-zinc-950/15 py-7 md:grid-cols-[9rem_1fr_1.2fr] md:items-center"
       >
-        <span className="absolute right-5 top-4 text-6xl font-black tracking-tighter text-zinc-100 transition group-hover:text-lime-100">
+        <span className="text-5xl font-black tracking-tighter text-zinc-200 transition group-hover:text-lime-300">
           {index}
         </span>
-        <div className="relative z-10 mb-8 grid h-14 w-14 place-items-center rounded-2xl bg-lime-100 text-zinc-950 ring-1 ring-lime-200 transition group-hover:scale-105">
-          {icon}
+        <div className="mt-4 flex items-center gap-4 md:mt-0">
+          <div className="grid h-12 w-12 place-items-center rounded-full border border-zinc-950 bg-white text-zinc-950 transition group-hover:bg-lime-300">
+            {icon}
+          </div>
+          <h3 className="text-2xl font-black tracking-tight text-zinc-950">
+            {title}
+          </h3>
         </div>
-        <h3 className="relative z-10 text-2xl font-black tracking-tight text-zinc-950">
-          {title}
-        </h3>
-        <p className="relative z-10 mt-4 text-base font-semibold leading-7 text-zinc-600">
+        <p className="mt-4 text-base font-semibold leading-7 text-zinc-600 md:mt-0">
           {text}
         </p>
-        <div className="absolute inset-x-0 bottom-0 h-1 bg-lime-300 origin-left scale-x-0 transition duration-500 group-hover:scale-x-100" />
+        <div className="absolute inset-x-0 bottom-0 h-px origin-left scale-x-0 bg-lime-300 transition duration-500 group-hover:scale-x-100" />
       </motion.div>
     </FadeIn>
   );
@@ -1015,20 +1124,20 @@ function BentoCard({
 }) {
   const styles = {
     white:
-      "border-zinc-200 bg-white text-zinc-950 shadow-[0_24px_80px_rgba(24,24,27,0.08)]",
+      "border-zinc-950/20 bg-white text-zinc-950",
     lime:
-      "border-lime-200 bg-lime-100 text-zinc-950 shadow-[0_24px_80px_rgba(132,204,22,0.18)]",
+      "border-zinc-950 bg-lime-100 text-zinc-950",
     black:
-      "border-zinc-900 bg-zinc-950 text-white shadow-[0_24px_80px_rgba(24,24,27,0.18)]",
+      "border-zinc-950 bg-zinc-950 text-white",
   };
 
   return (
     <FadeIn className={className}>
       <motion.div
-        whileHover={{ y: -8, scale: 1.01 }}
-        className={`kinetic-scan group relative h-full overflow-hidden rounded-[2rem] border p-6 transition ${styles[accent]}`}
+        whileHover={{ y: -5 }}
+        className={`kinetic-scan group relative h-full overflow-hidden rounded-[1.35rem] border p-6 transition shadow-[0_18px_55px_rgba(24,24,27,0.07)] ${styles[accent]}`}
       >
-        <div className="absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-lime-300 to-transparent opacity-0 transition group-hover:opacity-100" />
+        <div className="absolute inset-y-6 left-0 w-1 origin-top scale-y-0 bg-lime-300 transition duration-500 group-hover:scale-y-100" />
         <h3 className="text-2xl font-black tracking-tight">{title}</h3>
         <p
           className={`mt-3 max-w-2xl text-base font-semibold leading-7 ${
@@ -1176,38 +1285,36 @@ export default function Home() {
       <Navbar />
 
       <Section className="kinetic-shell pt-28 sm:pt-36 lg:pt-40">
-        <div className="mx-auto max-w-5xl text-center">
+        <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
           <FadeIn className="relative z-20 min-w-0">
             <div className="inline-flex items-center gap-2 rounded-full border border-lime-300 bg-white px-4 py-2 text-sm font-black text-zinc-950 shadow-sm">
               <Sparkles aria-hidden="true" className="h-4 w-4 text-lime-700" />
-              Moderní nástroj pro instalační firmy
+              Dispečink pro FVE a tepelná čerpadla
             </div>
             <AnimatedHeadline />
-            <p className="mx-auto mt-7 max-w-3xl text-lg font-semibold leading-8 text-zinc-600 sm:text-xl">
-              Jediný systém navržený speciálně pro montážní firmy. Automaticky
-              odpovídá na SMS, kvalifikuje poptávky a plní váš kalendář
-              obhlídkami. Vy se soustředíte na řemeslo.
+            <p className="mt-7 max-w-2xl text-lg font-semibold leading-8 text-zinc-600 sm:text-xl">
+              InstallFlow bere zmeškané hovory, SMS a staré excelové poptávky a
+              mění je na kvalifikované obhlídky v kalendáři. Žádný obecný CRM
+              dashboard. Jen tok práce, který instalační firma opravdu řeší.
             </p>
-            <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <div className="mt-10 flex flex-col items-start gap-3 sm:flex-row">
               <PrimaryButton className="w-full sm:w-auto">
                 Vyzkoušet na 14 dní zdarma
               </PrimaryButton>
               <SecondaryButton>Jak to funguje?</SecondaryButton>
             </div>
+            <FadeIn delay={0.18} className="max-w-2xl">
+              <LeadTicker />
+            </FadeIn>
           </FadeIn>
+          <FieldOpsVisual />
         </div>
-        <FadeIn delay={0.12} className="mx-auto mt-12 max-w-6xl">
-          <ProductFlowMockup />
-        </FadeIn>
-        <FadeIn delay={0.18} className="mx-auto max-w-5xl">
-          <LeadTicker />
-        </FadeIn>
         <LeadStream />
         <SignalBoard />
       </Section>
 
       <Section className="pt-28 sm:pt-36">
-        <div className="mx-auto max-w-4xl text-center">
+        <div className="max-w-4xl">
           <FadeIn>
             <p className="text-sm font-black uppercase text-lime-700">
               Problém
@@ -1217,13 +1324,13 @@ export default function Home() {
             </h2>
           </FadeIn>
           <FadeIn>
-            <p className="mx-auto mt-5 max-w-2xl text-lg font-semibold leading-8 text-zinc-600">
+            <p className="mt-5 max-w-2xl text-lg font-semibold leading-8 text-zinc-600">
               InstallFlow zachytí poptávky v okamžiku, kdy váš tým pracuje v
               terénu. Každý dotaz se změní na strukturovanou příležitost.
             </p>
           </FadeIn>
         </div>
-        <div className="mt-12 grid gap-4 md:grid-cols-3">
+        <div className="mt-12 grid gap-3">
           <ProblemCard
             index="01"
             icon={<PhoneMissed aria-hidden="true" className="h-6 w-6" />}
@@ -1246,7 +1353,7 @@ export default function Home() {
       </Section>
 
       <Section id="features" className="pt-28 sm:pt-36">
-        <div className="mx-auto max-w-4xl text-center">
+        <div className="max-w-4xl">
           <FadeIn>
             <p className="text-sm font-black uppercase text-lime-700">
               Funkce
@@ -1255,7 +1362,7 @@ export default function Home() {
               Jeden tok práce od první zprávy po smlouvu.
             </h2>
           </FadeIn>
-          <FadeIn className="mx-auto mt-8 grid max-w-xl grid-cols-2 gap-3 text-left">
+          <FadeIn className="mt-8 grid max-w-xl grid-cols-2 gap-3 text-left">
             <div className="rounded-3xl bg-zinc-950 p-5 text-white">
               <Gauge aria-hidden="true" className="h-6 w-6 text-lime-300" />
               <p className="mt-4 text-3xl font-black">do 60 s</p>
