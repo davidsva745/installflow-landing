@@ -593,13 +593,13 @@ function ProblemCard({
   return (
     <FadeIn>
       <motion.div
-        whileHover={{ y: -10, rotate: -1.2 }}
-        className="group relative min-h-72 overflow-hidden rounded-[2rem] border border-zinc-200 bg-white p-6 shadow-[0_24px_80px_rgba(24,24,27,0.08)]"
+        whileHover={{ y: -6 }}
+        className="group relative min-h-60 overflow-hidden rounded-[1.6rem] border border-zinc-200 bg-white p-6 shadow-[0_18px_60px_rgba(24,24,27,0.07)]"
       >
-        <span className="absolute right-5 top-3 text-7xl font-black tracking-tighter text-zinc-100 transition group-hover:text-lime-100">
+        <span className="absolute right-5 top-4 text-6xl font-black tracking-tighter text-zinc-100 transition group-hover:text-lime-100">
           {index}
         </span>
-        <div className="relative z-10 mb-12 grid h-14 w-14 place-items-center rounded-2xl bg-lime-100 text-zinc-950 ring-1 ring-lime-200 transition group-hover:scale-110">
+        <div className="relative z-10 mb-8 grid h-14 w-14 place-items-center rounded-2xl bg-lime-100 text-zinc-950 ring-1 ring-lime-200 transition group-hover:scale-105">
           {icon}
         </div>
         <h3 className="relative z-10 text-2xl font-black tracking-tight text-zinc-950">
@@ -901,10 +901,10 @@ function Step({
   return (
     <FadeIn>
       <motion.div
-        whileHover={{ x: 8 }}
-        className="group grid grid-cols-[auto_1fr] gap-5 rounded-[2rem] border border-zinc-200 bg-white p-5 shadow-[0_20px_60px_rgba(24,24,27,0.07)]"
+        whileHover={{ y: -4 }}
+        className="group grid grid-cols-[auto_1fr] gap-5 rounded-[1.6rem] border border-zinc-200 bg-white p-5 shadow-[0_18px_55px_rgba(24,24,27,0.06)]"
       >
-        <div className="grid h-14 w-14 place-items-center rounded-2xl bg-lime-100 text-zinc-950 ring-1 ring-lime-200">
+        <div className="grid h-14 w-14 place-items-center rounded-2xl bg-lime-100 text-zinc-950 ring-1 ring-lime-200 transition group-hover:bg-lime-300">
           {icon}
         </div>
         <div>
@@ -1021,36 +1021,38 @@ export default function Home() {
       <Navbar />
 
       <Section className="pt-28 sm:pt-36 lg:pt-40">
-        <div className="grid gap-10 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] lg:items-center">
+        <div className="mx-auto max-w-5xl text-center">
           <FadeIn className="relative z-20 min-w-0">
             <div className="inline-flex items-center gap-2 rounded-full border border-lime-300 bg-white px-4 py-2 text-sm font-black text-zinc-950 shadow-sm">
               <Sparkles aria-hidden="true" className="h-4 w-4 text-lime-700" />
               Moderní nástroj pro instalační firmy
             </div>
-            <h1 className="text-balance mt-7 max-w-full text-5xl font-black leading-[0.9] tracking-tight text-zinc-950 sm:text-7xl lg:text-8xl xl:text-[6.7rem]">
+            <h1 className="text-balance mx-auto mt-7 max-w-5xl text-5xl font-black leading-[0.9] tracking-tight text-zinc-950 sm:text-7xl lg:text-8xl xl:text-[6.3rem]">
               Váš AI asistent, který mění zprávy v zakázky.
             </h1>
-            <p className="mt-7 max-w-2xl text-lg font-semibold leading-8 text-zinc-600 sm:text-xl">
+            <p className="mx-auto mt-7 max-w-3xl text-lg font-semibold leading-8 text-zinc-600 sm:text-xl">
               Jediný systém navržený speciálně pro montážní firmy. Automaticky
               odpovídá na SMS, kvalifikuje poptávky a plní váš kalendář
               obhlídkami. Vy se soustředíte na řemeslo.
             </p>
-            <div className="mt-10 flex max-w-md flex-col items-start gap-3 sm:max-w-none sm:flex-row">
+            <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <PrimaryButton className="w-full sm:w-auto">
                 Vyzkoušet na 14 dní zdarma
               </PrimaryButton>
               <SecondaryButton>Jak to funguje?</SecondaryButton>
             </div>
-            <LeadTicker />
-          </FadeIn>
-          <FadeIn delay={0.12} className="min-w-0">
-            <ProductFlowMockup />
           </FadeIn>
         </div>
+        <FadeIn delay={0.12} className="mx-auto mt-12 max-w-6xl">
+          <ProductFlowMockup />
+        </FadeIn>
+        <FadeIn delay={0.18} className="mx-auto max-w-5xl">
+          <LeadTicker />
+        </FadeIn>
       </Section>
 
       <Section className="pt-28 sm:pt-36">
-        <div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-end">
+        <div className="mx-auto max-w-4xl text-center">
           <FadeIn>
             <p className="text-sm font-black uppercase text-lime-700">
               Problém
@@ -1060,7 +1062,7 @@ export default function Home() {
             </h2>
           </FadeIn>
           <FadeIn>
-            <p className="max-w-2xl text-xl font-semibold leading-9 text-zinc-600">
+            <p className="mx-auto mt-5 max-w-2xl text-lg font-semibold leading-8 text-zinc-600">
               InstallFlow zachytí poptávky v okamžiku, kdy váš tým pracuje v
               terénu. Každý dotaz se změní na strukturovanou příležitost.
             </p>
@@ -1089,8 +1091,8 @@ export default function Home() {
       </Section>
 
       <Section id="features" className="pt-28 sm:pt-36">
-        <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
-          <FadeIn className="max-w-3xl">
+        <div className="mx-auto max-w-4xl text-center">
+          <FadeIn>
             <p className="text-sm font-black uppercase text-lime-700">
               Funkce
             </p>
@@ -1098,7 +1100,7 @@ export default function Home() {
               Jeden tok práce od první zprávy po smlouvu.
             </h2>
           </FadeIn>
-          <FadeIn className="grid max-w-md grid-cols-2 gap-3">
+          <FadeIn className="mx-auto mt-8 grid max-w-xl grid-cols-2 gap-3 text-left">
             <div className="rounded-3xl bg-zinc-950 p-5 text-white">
               <Gauge aria-hidden="true" className="h-6 w-6 text-lime-300" />
               <p className="mt-4 text-3xl font-black">do 60 s</p>
@@ -1111,11 +1113,11 @@ export default function Home() {
             </div>
           </FadeIn>
         </div>
-        <div className="mt-12 grid gap-4 lg:grid-cols-6">
+        <div className="mt-12 grid gap-4 lg:grid-cols-2">
           <BentoCard
             title="AI Dispečer 24/7"
             text="Odpovídá, kvalifikuje a posouvá zákazníka k termínu i mimo pracovní dobu."
-            className="lg:col-span-4 lg:row-span-2"
+            className="lg:col-span-2"
             accent="lime"
           >
             <MiniChat />
@@ -1123,14 +1125,14 @@ export default function Home() {
           <BentoCard
             title="Automatické recenze"
             text="Po dokončení zakázky systém požádá zákazníka o hodnocení."
-            className="lg:col-span-2"
+            className=""
           >
             <Stars />
           </BentoCard>
           <BentoCard
             title="Reaktivace starých leadů"
             text="Znovu otevře poptávky, které čekaly v tabulce."
-            className="lg:col-span-2"
+            className=""
             accent="black"
           >
             <LineChart />
@@ -1138,7 +1140,7 @@ export default function Home() {
           <BentoCard
             title="Přehledné CRM"
             text="Každý obchod vidíte v jasné pipeline od nové poptávky po smlouvu."
-            className="lg:col-span-6"
+            className="lg:col-span-2"
           >
             <Kanban />
           </BentoCard>
@@ -1146,16 +1148,16 @@ export default function Home() {
       </Section>
 
       <Section id="how" className="pt-28 sm:pt-36">
-        <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+        <div className="mx-auto grid max-w-5xl gap-8">
           <FadeIn>
-            <div className="sticky top-24 rounded-[2.2rem] border border-zinc-200 bg-white p-6 shadow-[0_28px_90px_rgba(24,24,27,0.09)]">
+            <div className="rounded-[2rem] border border-zinc-200 bg-white p-6 text-center shadow-[0_24px_80px_rgba(24,24,27,0.08)]">
               <p className="text-sm font-black uppercase text-lime-700">
                 Jak to funguje
               </p>
-              <h2 className="mt-4 text-4xl font-black tracking-tight text-zinc-950 sm:text-6xl">
+              <h2 className="mx-auto mt-4 max-w-3xl text-4xl font-black tracking-tight text-zinc-950 sm:text-6xl">
                 Od dotazu ke schůzce bez ručního nahánění.
               </h2>
-              <div className="mt-8 rounded-3xl bg-zinc-950 p-5 text-white">
+              <div className="mx-auto mt-8 max-w-xl rounded-3xl bg-zinc-950 p-5 text-left text-white">
                 <div className="flex items-center gap-3">
                   <ShieldCheck
                     aria-hidden="true"
@@ -1168,7 +1170,7 @@ export default function Home() {
               </div>
             </div>
           </FadeIn>
-          <div className="space-y-4">
+          <div className="grid gap-4 sm:grid-cols-2">
             <Step
               number="01"
               title="Zákazník napíše SMS nebo zavolá."
