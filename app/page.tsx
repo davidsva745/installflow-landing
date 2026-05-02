@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState, type ReactNode } from "react";
+import Script from "next/script";
 import { motion, useScroll, useTransform } from "framer-motion";
 import {
   ArrowRight,
@@ -1531,76 +1532,43 @@ export default function Home() {
             </FadeIn>
             <FadeIn>
               <motion.div
-                whileHover={{ scale: 1.01 }}
-                className="relative overflow-hidden rounded-[2rem] border border-zinc-950 bg-white p-4 shadow-[0_28px_80px_rgba(24,24,27,0.16)]"
+                whileHover={{ scale: 1.005 }}
+                className="relative overflow-hidden rounded-[2rem] border border-zinc-950 bg-white p-3 shadow-[0_28px_80px_rgba(24,24,27,0.16)]"
               >
-                <div className="scanline" />
-                <div className="min-h-[28rem] rounded-[1.5rem] border-2 border-dashed border-lime-300 bg-[#fbfff5] p-5">
-                  <div className="flex items-center justify-between gap-4">
-                    <div className="flex items-center gap-3">
-                      <div className="grid h-12 w-12 place-items-center rounded-2xl bg-zinc-950 text-lime-300">
-                        <PhoneCall aria-hidden="true" className="h-6 w-6" />
-                      </div>
-                      <div>
-                        <p className="text-lg font-black tracking-tight text-zinc-950">
-                          Rezervační formulář
-                        </p>
-                        <p className="text-xs font-black uppercase text-lime-700">
-                          GHL embed slot
-                        </p>
-                      </div>
-                    </div>
-                    <span className="hidden rounded-full bg-lime-200 px-3 py-1 text-xs font-black text-zinc-950 sm:inline-flex">
-                      připraveno
-                    </span>
-                  </div>
-
-                  <div className="mt-6 grid gap-3">
-                    {["Jméno a firma", "Telefon", "Typ instalace"].map(
-                      (label) => (
-                        <div
-                          key={label}
-                          className="rounded-2xl border border-zinc-200 bg-white px-4 py-3"
-                        >
-                          <p className="text-xs font-black uppercase text-zinc-400">
-                            {label}
-                          </p>
-                          <div className="mt-2 h-3 w-2/3 rounded-full bg-zinc-100" />
-                        </div>
-                      ),
-                    )}
-                    <div className="grid gap-3 sm:grid-cols-2">
-                      <div className="rounded-2xl border border-zinc-200 bg-white px-4 py-3">
-                        <p className="text-xs font-black uppercase text-zinc-400">
-                          Preferovaný termín
-                        </p>
-                        <div className="mt-3 flex gap-2">
-                          {["Út", "St", "Čt"].map((day) => (
-                            <span
-                              key={day}
-                              className="rounded-full bg-lime-100 px-3 py-1 text-xs font-black text-zinc-950"
-                            >
-                              {day}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                      <button className="rounded-2xl bg-zinc-950 px-4 py-4 text-sm font-black text-white">
-                        Odeslat poptávku
-                      </button>
-                    </div>
-                  </div>
-
-                  <p className="mt-5 rounded-2xl bg-lime-100 px-4 py-3 text-sm font-bold leading-6 text-lime-900">
-                    Sem se vloží finální GHL formulář nebo kalendář. Teď je tu
-                    ukázka, aby bylo jasné, jaký modul v sekci bude.
-                  </p>
+                <div className="overflow-hidden rounded-[1.5rem] border border-zinc-200 bg-white">
+                  <iframe
+                    src="https://api.leadconnectorhq.com/widget/form/n9BKLHw10jvhbbQbXOPj"
+                    style={{
+                      width: "100%",
+                      height: "926px",
+                      border: "none",
+                      borderRadius: "8px",
+                    }}
+                    id="inline-n9BKLHw10jvhbbQbXOPj"
+                    data-layout="{'id':'INLINE'}"
+                    data-trigger-type="alwaysShow"
+                    data-trigger-value=""
+                    data-activation-type="alwaysActivated"
+                    data-activation-value=""
+                    data-deactivation-type="neverDeactivate"
+                    data-deactivation-value=""
+                    data-form-name="Form"
+                    data-height="926"
+                    data-layout-iframe-id="inline-n9BKLHw10jvhbbQbXOPj"
+                    data-form-id="n9BKLHw10jvhbbQbXOPj"
+                    title="Form"
+                  />
                 </div>
               </motion.div>
             </FadeIn>
           </div>
         </div>
       </Section>
+
+      <Script
+        src="https://link.msgsndr.com/js/form_embed.js"
+        strategy="afterInteractive"
+      />
 
       <footer className="relative z-10 border-t border-zinc-200 bg-white px-5 py-8">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 text-sm font-bold text-zinc-500 sm:flex-row">
