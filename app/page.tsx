@@ -136,17 +136,58 @@ function ScrollProgress() {
   );
 }
 
+function InstallFlowLogo() {
+  return (
+    <span className="group flex items-center gap-3">
+      <span className="relative grid h-11 w-11 place-items-center overflow-hidden rounded-[1rem] border border-zinc-950 bg-lime-300 shadow-[0_12px_35px_rgba(132,204,22,0.28)]">
+        <svg
+          aria-hidden="true"
+          viewBox="0 0 44 44"
+          className="h-10 w-10"
+          fill="none"
+        >
+          <path
+            d="M10 31.5V12.5"
+            stroke="#09090b"
+            strokeWidth="4"
+            strokeLinecap="round"
+          />
+          <path
+            d="M19 13H31.5C35 13 37 15 37 18.2C37 21.6 34.7 23.4 31.2 23.4H24.4C21.1 23.4 19.1 25.1 19.1 28.1C19.1 31.1 21.2 33 24.4 33H35"
+            stroke="#09090b"
+            strokeWidth="3.4"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <path
+            d="M28.5 18.2H36.8L32.5 14"
+            stroke="#09090b"
+            strokeWidth="3"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <circle cx="10" cy="7.8" r="2.4" fill="#09090b" />
+        </svg>
+        <span className="absolute inset-y-0 -left-8 w-6 rotate-12 bg-white/45 transition duration-700 group-hover:translate-x-20" />
+      </span>
+      <span className="leading-none">
+        <span className="block text-xl font-black tracking-tight text-zinc-950">
+          InstallFlow
+        </span>
+        <span className="hidden text-[0.62rem] font-black uppercase tracking-[0.16em] text-lime-700 sm:block">
+          lead to survey
+        </span>
+      </span>
+    </span>
+  );
+}
+
 function Navbar() {
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-zinc-200/70 bg-white/82 backdrop-blur-2xl">
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 sm:px-6 lg:px-8">
-        <a href="#" className="flex items-center gap-3" aria-label="InstallFlow">
-          <span className="grid h-10 w-10 place-items-center rounded-xl border border-lime-300 bg-lime-100 text-zinc-950 shadow-[0_10px_30px_rgba(132,204,22,0.22)]">
-            <Zap aria-hidden="true" className="h-5 w-5" />
-          </span>
-          <span className="text-xl font-black tracking-tight text-zinc-950">
-            InstallFlow
-          </span>
+        <a href="#" aria-label="InstallFlow">
+          <InstallFlowLogo />
         </a>
         <div className="hidden items-center gap-2 md:flex">
           <a
