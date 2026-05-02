@@ -1,0 +1,172 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+  background: #f7faf4;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    linear-gradient(115deg, rgba(217, 249, 157, 0.48), transparent 28rem),
+    linear-gradient(245deg, rgba(186, 230, 253, 0.32), transparent 32rem),
+    #f7faf4;
+  color: #09090b;
+  font-family: Inter, Urbanist, ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: 0;
+}
+
+::selection {
+  background: rgba(190, 242, 100, 0.75);
+  color: #09090b;
+}
+
+.paper-grid {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(24, 24, 27, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(24, 24, 27, 0.045) 1px, transparent 1px);
+  background-size: 58px 58px;
+  mask-image: linear-gradient(to bottom, black 0%, black 62%, transparent 96%);
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+.route-line {
+  position: absolute;
+  inset: 50% 1rem auto 1rem;
+  height: 2px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(212, 212, 216, 0.7);
+}
+
+.route-line::after {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 -45%;
+  width: 45%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, transparent, #bef264, transparent);
+  animation: route-sweep 2.2s ease-in-out infinite;
+}
+
+.flow-rail {
+  position: absolute;
+  left: 4rem;
+  right: 4rem;
+  top: 9.4rem;
+  height: 3px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(212, 212, 216, 0.8);
+}
+
+.flow-rail::after {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 -25%;
+  width: 25%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, transparent, #84cc16, transparent);
+  animation: flow-sweep 2.8s ease-in-out infinite;
+}
+
+.pulse-dot {
+  position: relative;
+}
+
+.pulse-dot::after {
+  content: "";
+  position: absolute;
+  inset: -7px;
+  border-radius: 999px;
+  border: 1px solid rgba(132, 204, 22, 0.5);
+  animation: pulse-ring 1.8s ease-out infinite;
+}
+
+.marquee-track {
+  width: max-content;
+  animation: marquee 24s linear infinite;
+}
+
+.scanline {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    transparent 42%,
+    rgba(190, 242, 100, 0.28) 50%,
+    transparent 58%,
+    transparent 100%
+  );
+  transform: translateY(-100%);
+  animation: scanline 4.2s ease-in-out infinite;
+}
+
+@keyframes route-sweep {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(330%);
+  }
+}
+
+@keyframes flow-sweep {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(500%);
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    opacity: 0.75;
+    transform: scale(0.55);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.45);
+  }
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes scanline {
+  0%,
+  32% {
+    transform: translateY(-100%);
+  }
+  68%,
+  100% {
+    transform: translateY(100%);
+  }
+}
