@@ -122,6 +122,57 @@ body {
   animation: scanline 4.2s ease-in-out infinite;
 }
 
+.dispatch-route-base,
+.dispatch-route-pulse {
+  fill: none;
+  stroke-linecap: round;
+  stroke-width: 3;
+}
+
+.dispatch-route-base {
+  stroke: rgba(24, 24, 27, 0.12);
+}
+
+.dispatch-route-pulse {
+  stroke: #84cc16;
+  stroke-dasharray: 95 720;
+  stroke-dashoffset: 820;
+  filter: drop-shadow(0 0 12px rgba(132, 204, 22, 0.7));
+  animation: dispatch-dash 3.1s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+
+.kinetic-shell {
+  position: relative;
+}
+
+.kinetic-shell::before {
+  content: "";
+  position: absolute;
+  inset: -6rem 10% auto 10%;
+  height: 18rem;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 18% 40%, rgba(190, 242, 100, 0.5), transparent 18rem),
+    linear-gradient(90deg, transparent, rgba(24, 24, 27, 0.07), transparent);
+  transform: skewY(-5deg);
+  filter: blur(18px);
+}
+
+.kinetic-scan {
+  position: relative;
+  overflow: hidden;
+}
+
+.kinetic-scan::after {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 -55%;
+  width: 45%;
+  transform: skewX(-18deg);
+  background: linear-gradient(90deg, transparent, rgba(190, 242, 100, 0.22), transparent);
+  animation: kinetic-sweep 5.2s ease-in-out infinite;
+}
+
 @keyframes route-sweep {
   0% {
     transform: translateX(0);
@@ -137,6 +188,33 @@ body {
   }
   100% {
     transform: translateX(500%);
+  }
+}
+
+@keyframes dispatch-dash {
+  0% {
+    stroke-dashoffset: 820;
+    opacity: 0;
+  }
+  18% {
+    opacity: 1;
+  }
+  78% {
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0;
+  }
+}
+
+@keyframes kinetic-sweep {
+  0%,
+  44% {
+    transform: translateX(0) skewX(-18deg);
+  }
+  100% {
+    transform: translateX(360%) skewX(-18deg);
   }
 }
 

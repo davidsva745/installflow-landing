@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, type ReactNode } from "react";
-import { motion } from "framer-motion";
+import { useRef, useState, type ReactNode } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import {
   ArrowRight,
   Bot,
@@ -122,6 +122,19 @@ function SecondaryButton({ children }: { children: ReactNode }) {
   );
 }
 
+function ScrollProgress() {
+  const { scrollYProgress } = useScroll();
+  const scaleX = useTransform(scrollYProgress, [0, 1], [0, 1]);
+
+  return (
+    <motion.div
+      aria-hidden="true"
+      style={{ scaleX }}
+      className="fixed left-0 top-0 z-[60] h-1 w-full origin-left bg-lime-300 shadow-[0_0_22px_rgba(132,204,22,0.75)]"
+    />
+  );
+}
+
 function Navbar() {
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-zinc-200/70 bg-white/82 backdrop-blur-2xl">
@@ -203,6 +216,121 @@ function StatPill({
   );
 }
 
+function AnimatedHeadline() {
+  const lines = [
+    ["Váš AI", "asistent,"],
+    ["který mění", "zprávy"],
+    ["v zakázky."],
+  ];
+
+  return (
+    <h1 className="text-balance mx-auto mt-7 max-w-6xl text-5xl font-black leading-[0.88] tracking-tight text-zinc-950 sm:text-7xl lg:text-8xl xl:text-[6.6rem]">
+      {lines.map((line, lineIndex) => (
+        <span key={line.join(" ")} className="block overflow-hidden pb-2">
+          {line.map((part, partIndex) => {
+            const highlight = part === "zprávy";
+            return (
+              <motion.span
+                key={part}
+                initial={{ y: "115%", rotate: 4, opacity: 0 }}
+                animate={{ y: "0%", rotate: 0, opacity: 1 }}
+                transition={{
+                  delay: 0.08 + lineIndex * 0.12 + partIndex * 0.08,
+                  duration: 0.78,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
+                className={`mr-3 inline-block sm:mr-5 ${
+                  highlight
+                    ? "rounded-[0.22em] bg-zinc-950 px-3 py-1 text-lime-300"
+                    : ""
+                }`}
+              >
+                {part}
+              </motion.span>
+            );
+          })}
+        </span>
+      ))}
+    </h1>
+  );
+}
+
+function LeadStream() {
+  const items = [
+    "SMS zachycena",
+    "lead kvalifikován",
+    "termín vybrán",
+    "CRM karta hotová",
+    "recenze připravena",
+  ];
+
+  return (
+    <div className="pointer-events-none relative z-10 mx-auto mt-12 max-w-7xl overflow-hidden rounded-[1.2rem] border-y border-zinc-950 bg-zinc-950 py-3 text-lime-300 shadow-[0_22px_70px_rgba(24,24,27,0.18)] rotate-[-1.2deg]">
+      <div className="marquee-track flex gap-4 whitespace-nowrap">
+        {[...items, ...items, ...items].map((item, index) => (
+          <span
+            key={`${item}-${index}`}
+            className="inline-flex items-center gap-4 text-sm font-black uppercase tracking-[0.18em]"
+          >
+            <span>{item}</span>
+            <span className="h-2 w-2 rounded-full bg-lime-300" />
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function SignalBoard() {
+  const lanes = [
+    ["Příchozí", "12 leadů", "SMS / web / telefon"],
+    ["AI práce", "9 kvalifikací", "lokalita + služba + čas"],
+    ["Kalendář", "5 obhlídek", "volné sloty doplněny"],
+  ];
+
+  return (
+    <FadeIn className="mt-10">
+      <div className="relative overflow-hidden rounded-[2rem] border border-zinc-950 bg-zinc-950 p-4 text-white shadow-[0_35px_110px_rgba(24,24,27,0.22)]">
+        <div className="absolute inset-y-0 left-1/2 w-px bg-lime-300/40" />
+        <div className="absolute inset-0 opacity-30 [background-image:linear-gradient(rgba(190,242,100,.22)_1px,transparent_1px),linear-gradient(90deg,rgba(190,242,100,.16)_1px,transparent_1px)] [background-size:42px_42px]" />
+        <div className="relative grid gap-3 lg:grid-cols-3">
+          {lanes.map(([title, value, detail], index) => (
+            <motion.div
+              key={title}
+              initial={{ clipPath: "inset(0 100% 0 0)" }}
+              whileInView={{ clipPath: "inset(0 0% 0 0)" }}
+              viewport={{ once: true }}
+              transition={{
+                delay: index * 0.14,
+                duration: 0.85,
+                ease: [0.16, 1, 0.3, 1],
+              }}
+              className="relative overflow-hidden rounded-[1.4rem] border border-white/10 bg-white/[0.06] p-5"
+            >
+              <motion.div
+                aria-hidden="true"
+                className="absolute inset-x-4 top-0 h-px bg-lime-300"
+                animate={{ x: ["-120%", "120%"] }}
+                transition={{
+                  duration: 2.2,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: index * 0.2,
+                }}
+              />
+              <p className="text-xs font-black uppercase tracking-[0.18em] text-lime-300">
+                {title}
+              </p>
+              <p className="mt-5 text-4xl font-black tracking-tight">{value}</p>
+              <p className="mt-2 text-sm font-bold text-zinc-300">{detail}</p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </FadeIn>
+  );
+}
+
 function FlowStepCard({
   step,
   title,
@@ -219,9 +347,9 @@ function FlowStepCard({
   const pulseDelay = (Number(step) - 1) * 0.45;
 
   return (
-    <motion.div
-      whileHover={{ y: -6 }}
-      className={`relative min-h-56 overflow-hidden rounded-[1.4rem] border p-4 shadow-[0_18px_55px_rgba(24,24,27,0.08)] ${
+      <motion.div
+        whileHover={{ y: -6 }}
+        className={`kinetic-scan relative min-h-56 overflow-hidden rounded-[1.4rem] border p-4 shadow-[0_18px_55px_rgba(24,24,27,0.08)] ${
         accent
           ? "border-lime-300 bg-lime-100"
           : "border-zinc-200 bg-white"
@@ -260,13 +388,24 @@ function FlowStepCard({
 }
 
 function ProductFlowMockup() {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+  const y = useTransform(scrollYProgress, [0, 1], [36, -28]);
+  const rotate = useTransform(scrollYProgress, [0, 1], [-1.5, 1.5]);
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 44, scale: 0.96 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
+      ref={ref}
+      style={{ y, rotate }}
+      initial={{ opacity: 0, scale: 0.96 }}
+      animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-      className="relative mx-auto max-w-[47rem] rounded-[2rem] border border-zinc-200 bg-white p-3 shadow-[0_35px_110px_rgba(24,24,27,0.13)]"
+      className="relative mx-auto max-w-[68rem] rounded-[2rem] border border-zinc-950 bg-white p-3 shadow-[0_35px_110px_rgba(24,24,27,0.16)]"
     >
+      <div className="pointer-events-none absolute -inset-4 -z-10 rounded-[2.5rem] border border-lime-300/70 opacity-80" />
       <div className="overflow-hidden rounded-[1.55rem] border border-zinc-200 bg-[#fbfff5]">
         <div className="flex flex-wrap items-center justify-between gap-3 border-b border-zinc-200 bg-white px-4 py-3">
           <div className="flex items-center gap-3">
@@ -288,6 +427,21 @@ function ProductFlowMockup() {
         </div>
 
         <div className="relative p-4">
+          <svg
+            aria-hidden="true"
+            className="absolute inset-0 hidden h-full w-full lg:block"
+            viewBox="0 0 1100 560"
+            preserveAspectRatio="none"
+          >
+            <path
+              className="dispatch-route-base"
+              d="M155 150 C320 70 410 240 545 188 C720 120 765 365 944 310"
+            />
+            <path
+              className="dispatch-route-pulse"
+              d="M155 150 C320 70 410 240 545 188 C720 120 765 365 944 310"
+            />
+          </svg>
           <div className="grid gap-3 sm:grid-cols-2">
             <FlowStepCard
               step="01"
@@ -872,7 +1026,7 @@ function BentoCard({
     <FadeIn className={className}>
       <motion.div
         whileHover={{ y: -8, scale: 1.01 }}
-        className={`group relative h-full overflow-hidden rounded-[2rem] border p-6 transition ${styles[accent]}`}
+        className={`kinetic-scan group relative h-full overflow-hidden rounded-[2rem] border p-6 transition ${styles[accent]}`}
       >
         <div className="absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-lime-300 to-transparent opacity-0 transition group-hover:opacity-100" />
         <h3 className="text-2xl font-black tracking-tight">{title}</h3>
@@ -1017,19 +1171,18 @@ export default function Home() {
 
   return (
     <main className="min-h-screen overflow-hidden bg-[#f7faf4] text-zinc-950">
+      <ScrollProgress />
       <div className="paper-grid" />
       <Navbar />
 
-      <Section className="pt-28 sm:pt-36 lg:pt-40">
+      <Section className="kinetic-shell pt-28 sm:pt-36 lg:pt-40">
         <div className="mx-auto max-w-5xl text-center">
           <FadeIn className="relative z-20 min-w-0">
             <div className="inline-flex items-center gap-2 rounded-full border border-lime-300 bg-white px-4 py-2 text-sm font-black text-zinc-950 shadow-sm">
               <Sparkles aria-hidden="true" className="h-4 w-4 text-lime-700" />
               Moderní nástroj pro instalační firmy
             </div>
-            <h1 className="text-balance mx-auto mt-7 max-w-5xl text-5xl font-black leading-[0.9] tracking-tight text-zinc-950 sm:text-7xl lg:text-8xl xl:text-[6.3rem]">
-              Váš AI asistent, který mění zprávy v zakázky.
-            </h1>
+            <AnimatedHeadline />
             <p className="mx-auto mt-7 max-w-3xl text-lg font-semibold leading-8 text-zinc-600 sm:text-xl">
               Jediný systém navržený speciálně pro montážní firmy. Automaticky
               odpovídá na SMS, kvalifikuje poptávky a plní váš kalendář
@@ -1049,6 +1202,8 @@ export default function Home() {
         <FadeIn delay={0.18} className="mx-auto max-w-5xl">
           <LeadTicker />
         </FadeIn>
+        <LeadStream />
+        <SignalBoard />
       </Section>
 
       <Section className="pt-28 sm:pt-36">
